@@ -1,0 +1,13 @@
+{
+  "name": "logging-middleware",
+  "version": "1.0.0",
+  "description": "Reusable logging middleware package",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
