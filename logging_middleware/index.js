@@ -2,7 +2,7 @@ const allowedStacks = new Set(["backend", "frontend"]);
 
 const allowedLevels = new Set(["debug", "info", "warn", "error", "fatal"]);
 
-const allowedPackages = new Set([
+const backendPackages = new Set([
   "cache",
   "controller",
   "cron_job",
@@ -15,13 +15,20 @@ const allowedPackages = new Set([
   "auth",
   "config",
   "middleware",
-  "utils",
+  "utils"
+]);
+
+const frontendPackages = new Set([
   "api",
   "component",
   "hook",
   "page",
   "state",
-  "style"
+  "style",
+  "auth",
+  "config",
+  "middleware",
+  "utils"
 ]);
 
 function validateLogInput(stack, level, packageName, message) {
@@ -33,8 +40,12 @@ function validateLogInput(stack, level, packageName, message) {
     return { valid: false, reason: "invalid level" };
   }
 
-  if (!allowedPackages.has(packageName)) {
-    return { valid: false, reason: "invalid package" };
+  if (stack === "backend" && !backendPackages.has(packageName)) {
+    return { valid: false, reason: "invalid backend package" };
+  }
+
+  if (stack === "frontend" && !frontendPackages.has(packageName)) {
+    return { valid: false, reason: "invalid frontend package" };
   }
 
   if (typeof message !== "string" || message.trim().length === 0) {
